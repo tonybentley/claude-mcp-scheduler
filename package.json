@@ -11,10 +11,13 @@
     "test": "jest --testMatch='**/*.spec.ts'",
     "test:e2e": "jest --testMatch='**/test/*.e2e.spec.ts'",
     "test:watch": "jest --watch",
+    "test-prompt": "node dist/test-prompt.js",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "validate": "npm run lint && npm run build && npm test",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prestart": "npm run build",
+    "pretest-prompt": "npm run build"
   },
   "keywords": [
     "claude",

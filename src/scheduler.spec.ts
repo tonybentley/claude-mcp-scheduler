@@ -42,7 +42,7 @@ describe('Scheduler', () => {
   });
 
   describe('start', () => {
-    it('should schedule enabled tasks', async () => {
+    it('should schedule enabled tasks', () => {
       const schedules: Schedule[] = [
         {
           name: 'test-task',
@@ -71,7 +71,7 @@ describe('Scheduler', () => {
       );
     });
 
-    it('should validate cron expressions', async () => {
+    it('should validate cron expressions', () => {
       (cron.validate as jest.Mock).mockReturnValue(false);
 
       const schedules: Schedule[] = [{
@@ -84,7 +84,7 @@ describe('Scheduler', () => {
       expect(() => scheduler.start(schedules)).toThrow(SchedulerError);
     });
 
-    it('should prevent duplicate schedules', async () => {
+    it('should prevent duplicate schedules', () => {
       const schedule: Schedule = {
         name: 'duplicate',
         cron: '0 * * * *',
@@ -201,7 +201,7 @@ describe('Scheduler', () => {
   });
 
   describe('stop', () => {
-    it('should stop specific task', async () => {
+    it('should stop specific task', () => {
       const schedule: Schedule = {
         name: 'test-task',
         cron: '0 * * * *',
@@ -216,7 +216,7 @@ describe('Scheduler', () => {
       expect(scheduler.isTaskActive('test-task')).toBe(false);
     });
 
-    it('should stop all tasks when no name provided', async () => {
+    it('should stop all tasks when no name provided', () => {
       const schedules: Schedule[] = [
         {
           name: 'task1',
@@ -241,7 +241,7 @@ describe('Scheduler', () => {
   });
 
   describe('getActiveTasks', () => {
-    it('should return list of active tasks', async () => {
+    it('should return list of active tasks', () => {
       const schedules: Schedule[] = [
         {
           name: 'task1',
