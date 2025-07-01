@@ -20,6 +20,9 @@ export default {
       },
     ],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@modelcontextprotocol)/)'
+  ],
   testMatch: [
     '**/*.spec.ts',
     '**/test/*.e2e.spec.ts'
