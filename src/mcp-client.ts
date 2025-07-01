@@ -29,13 +29,11 @@ export class MCPClient {
         args: this.config.args
       });
 
-      // Spawn the MCP server process
-      this.serverProcess = spawn(this.config.command, this.config.args, {
+      // Spawn the MCP server process with allowed directories
+      const serverArgs = [...this.config.args, ...this.config.allowedDirectories];
+      this.serverProcess = spawn(this.config.command, serverArgs, {
         stdio: ['pipe', 'pipe', 'pipe'],
-        env: {
-          ...process.env,
-          MCP_ALLOWED_DIRECTORIES: this.config.allowedDirectories.join(',')
-        }
+        env: process.env
       });
 
       this.serverProcess.on('error', (error) => {
@@ -47,14 +45,10 @@ export class MCPClient {
         logger.debug('MCP server stderr', { data: data.toString() });
       });
 
-      // Create transport and client
+      // Create transport and client with allowed directories
       this.transport = new StdioClientTransport({
         command: this.config.command,
-        args: this.config.args,
-        env: {
-          ...process.env,
-          MCP_ALLOWED_DIRECTORIES: this.config.allowedDirectories.join(',')
-        }
+        args: [...this.config.args, ...this.config.allowedDirectories]
       });
 
       this.client = new Client({

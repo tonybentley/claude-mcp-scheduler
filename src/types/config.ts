@@ -40,7 +40,7 @@ export const DEFAULT_CONFIG: Config = {
     filesystem: {
       command: 'npx',
       args: ['-y', '@modelcontextprotocol/server-filesystem'],
-      allowedDirectories: ['./data', './reports']
+      allowedDirectories: [process.cwd()]
     }
   },
   anthropic: {
