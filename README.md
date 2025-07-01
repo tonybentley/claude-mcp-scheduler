@@ -49,11 +49,11 @@ Edit `config/config.json` to define your schedules:
 {
   "schedules": [
     {
-      "name": "daily-report",
-      "cron": "0 9 * * *",
+      "name": "file-check",
+      "cron": "* * * * *",
       "enabled": true,
-      "prompt": "Generate a summary of all log files from today",
-      "outputPath": "reports/daily-{date}.md"
+      "prompt": "List all files in the current directory and report how many files exist.",
+      "outputPath": "outputs/file-check-{timestamp}.txt"
     }
   ],
   "mcp": {

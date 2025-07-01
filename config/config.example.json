@@ -1,17 +1,11 @@
 {
   "schedules": [
     {
-      "name": "daily-report",
-      "cron": "0 9 * * *",
+      "name": "file-check",
+      "cron": "* * * * *",
       "enabled": true,
-      "prompt": "Generate a daily report summarizing all files modified today in the ./data directory. Include file sizes and modification times.",
-      "outputPath": "reports/daily-report.md"
-    },
-    {
-      "name": "hourly-check",
-      "cron": "0 * * * *",
-      "enabled": false,
-      "prompt": "Check the ./data directory for any files larger than 100MB and list them."
+      "prompt": "List all files in the current directory and report how many files exist.",
+      "outputPath": "outputs/file-check-{timestamp}.txt"
     }
   ],
   "mcp": {
