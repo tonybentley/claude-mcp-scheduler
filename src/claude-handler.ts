@@ -67,14 +67,16 @@ export class ClaudeHandler {
       }
     }));
 
+    const apiMessages = messages.map(msg => ({
+      role: msg.role,
+      content: msg.content
+    }));
+
     const response = await this.anthropic.messages.create({
       model: this.model,
       max_tokens: this.maxTokens,
       temperature: this.temperature,
-      messages: messages.map(msg => ({
-        role: msg.role,
-        content: msg.content
-      })),
+      messages: apiMessages as Anthropic.MessageParam[],
       tools: claudeTools.length > 0 ? claudeTools : undefined
     });
 
@@ -153,32 +155,31 @@ export class ClaudeHandler {
       }
     }
 
-    // Add assistant message and tool results to conversation
+    // Add complete assistant message to conversation (including tool use blocks)
     messages.push({
       role: 'assistant',
-      content: textContent
+      content: response.content
     });
 
     // Send follow-up request with tool results
+    const followUpMessages = [
+      ...messages,
+      {
+        role: 'user' as const,
+        content: toolResults.map(result => ({
+          type: 'tool_result' as const,
+          tool_use_id: result.tool_use_id,
+          content: result.content,
+          is_error: result.is_error
+        }))
+      }
+    ];
+
     const followUpResponse = await this.anthropic.messages.create({
       model: this.model,
       max_tokens: this.maxTokens,
       temperature: this.temperature,
-      messages: [
-        ...messages.map(msg => ({
-          role: msg.role,
-          content: msg.content
-        })),
-        {
-          role: 'user' as const,
-          content: toolResults.map(result => ({
-            type: 'tool_result' as const,
-            tool_use_id: result.tool_use_id,
-            content: result.content,
-            is_error: result.is_error
-          }))
-        }
-      ]
+      messages: followUpMessages as Anthropic.MessageParam[]
     });
 
     // Extract final text response

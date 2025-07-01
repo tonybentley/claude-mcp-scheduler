@@ -1,6 +1,12 @@
 export interface ClaudeMessage {
   role: 'user' | 'assistant';
-  content: string;
+  content: string | Array<{
+    type: 'text' | 'tool_use';
+    text?: string;
+    id?: string;
+    name?: string;
+    input?: Record<string, unknown>;
+  }>;
 }
 
 export interface ClaudeToolUse {
