@@ -1,0 +1,33 @@
+{
+  "schedules": [
+    {
+      "name": "daily-report",
+      "cron": "0 9 * * *",
+      "enabled": true,
+      "prompt": "Generate a daily report summarizing all files modified today in the ./data directory. Include file sizes and modification times.",
+      "outputPath": "reports/daily-report.md"
+    },
+    {
+      "name": "hourly-check",
+      "cron": "0 * * * *",
+      "enabled": false,
+      "prompt": "Check the ./data directory for any files larger than 100MB and list them."
+    }
+  ],
+  "mcp": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "allowedDirectories": ["./data", "./reports", "./outputs"]
+    }
+  },
+  "anthropic": {
+    "model": "claude-3-5-sonnet-20241022",
+    "maxTokens": 4096,
+    "temperature": 0.7
+  },
+  "logging": {
+    "level": "info",
+    "file": "logs/combined.log"
+  }
+}
