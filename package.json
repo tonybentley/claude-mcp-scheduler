@@ -27,8 +27,16 @@
     "mcp",
     "anthropic"
   ],
-  "author": "",
+  "author": "Tony Bentley",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonybentley/claude-mcp-scheduler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tonybentley/claude-mcp-scheduler/issues"
+  },
+  "homepage": "https://github.com/tonybentley/claude-mcp-scheduler#readme",
   "engines": {
     "node": ">=18.0.0"
   },

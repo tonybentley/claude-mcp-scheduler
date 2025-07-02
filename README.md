@@ -56,7 +56,7 @@ This demo bridges the gap between interactive AI assistants and production autom
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/tonybentley/claude-mcp-scheduler.git
 cd claude-mcp-scheduler
 ```
 
@@ -263,4 +263,4 @@ MIT License - see LICENSE file for details
 For issues and questions:
 - Check the logs in `logs/` directory
 - Review the troubleshooting section
-- Create an issue on GitHub
+- Create an issue on [GitHub](https://github.com/tonybentley/claude-mcp-scheduler/issues)
