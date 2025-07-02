@@ -1,16 +1,50 @@
-# Claude MCP Scheduler
+# Cron + MCP Demo: Scheduling Claude AI Tasks
 
-A Node.js-based scheduling system that executes Claude AI prompts at specified intervals with access to local filesystem through Model Context Protocol (MCP) servers.
+A demonstration project showing how to integrate cron scheduling with Model Context Protocol (MCP) servers. This example uses the filesystem MCP server to show how Claude AI can perform scheduled tasks with access to local MCP servers running on your machine.
 
-## Features
+## What This Demo Shows
 
-- 🕒 **Cron-based Scheduling** - Schedule prompts to run at specific times using cron expressions
-- 🤖 **Claude AI Integration** - Execute prompts using Anthropic's Claude API
-- 📁 **Filesystem Access** - Read and analyze files through MCP filesystem server
-- 💾 **Output Management** - Save results with customizable paths and timestamps
-- 📊 **Comprehensive Logging** - Winston-based logging with multiple levels
-- 🔄 **Error Recovery** - Automatic MCP reconnection and graceful error handling
-- 🧪 **Test Utility** - Interactive prompt testing before scheduling
+This project demonstrates how to:
+
+- 🕒 **Schedule AI Tasks** - Use cron expressions to run Claude prompts at specific intervals
+- 🤖 **Integrate with MCP** - Connect Claude to external tools via Model Context Protocol
+- 📁 **Example: Filesystem Server** - Shows one MCP integration (filesystem access) as a practical example
+- 🔌 **Extensible Architecture** - Easily add other MCP servers for databases, APIs, or custom tools
+- 💾 **Manage Outputs** - Save and organize results from scheduled AI tasks
+- 🔄 **Handle Errors Gracefully** - Robust error handling and automatic reconnection
+- 🧪 **Test Before Scheduling** - Interactive prompt testing utility
+
+## What is MCP (Model Context Protocol)?
+
+Model Context Protocol is an open standard that enables AI assistants like Claude to securely interact with external tools and data sources. Instead of being limited to text generation, MCP allows Claude to:
+
+- Access local files and directories
+- Query databases
+- Call APIs
+- Execute custom tools
+- And much more
+
+This demo uses the filesystem MCP server as an example, but the architecture supports any MCP-compatible server. This makes it a perfect starting point for building scheduled AI workflows that need to interact with your specific tools and data sources.
+
+## Why Use This Instead of Claude Desktop or Claude Code?
+
+While Claude Desktop and Claude Code are excellent for interactive development, this scheduler demo offers unique advantages for different use cases:
+
+### When to Use This Scheduler:
+- **Automated Tasks** - Run AI tasks unattended on schedules (hourly reports, daily analysis, etc.)
+- **Server Environments** - Deploy on headless servers, VMs, or containers without a GUI
+- **Batch Processing** - Process multiple scheduled tasks in parallel
+- **CI/CD Integration** - Embed AI tasks into existing automation workflows
+- **Cost Optimization** - Only pay for API usage when scheduled tasks actually run
+- **Custom MCP Servers** - Full control over which MCP servers are available and how they're configured
+
+### When to Use Claude Desktop/Code:
+- **Interactive Development** - Real-time coding assistance and exploration
+- **One-off Tasks** - Quick questions or immediate help
+- **Visual Work** - Tasks requiring UI interaction or visual feedback
+- **Learning/Experimentation** - Exploring Claude's capabilities interactively
+
+This demo bridges the gap between interactive AI assistants and production automation, showing how to leverage MCP servers in scheduled, unattended workflows.
 
 ## Prerequisites
 
@@ -43,7 +77,7 @@ cp config/config.example.json config/config.json
 
 ## Configuration
 
-Edit `config/config.json` to define your schedules:
+Edit `config/config.json` to define your schedules. This example shows the filesystem MCP server, but you can easily add other MCP servers:
 
 ```json
 {
@@ -62,6 +96,17 @@ Edit `config/config.json` to define your schedules:
       "args": ["-y", "@modelcontextprotocol/server-filesystem"],
       "allowedDirectories": ["./data", "./reports"]
     }
+    // Add other MCP servers here:
+    // "database": {
+    //   "command": "npx",
+    //   "args": ["-y", "@your-org/mcp-database-server"],
+    //   "config": { ... }
+    // },
+    // "api": {
+    //   "command": "npx", 
+    //   "args": ["-y", "@your-org/mcp-api-server"],
+    //   "config": { ... }
+    // }
   },
   "anthropic": {
     "model": "claude-3-5-sonnet-20241022",
